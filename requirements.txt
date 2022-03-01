@@ -1,0 +1,20 @@
+Python
+HTML
+CSS
+Javascript
+
+flask
+flask-SQLAlchemy
+bootstrap
+wtforms
+flask-bcrypt
+flask-wtf
+email-validator
+flask-login
+flask-mail
+
+initialization:
+---------------------------
+run Python
+1.  "from app import db"
+2.  "db.create_all()"

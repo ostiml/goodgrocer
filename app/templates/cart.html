@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Site</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"  type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{{ url_for('.static', filename='master.css') }}" rel="stylesheet">
+    <link href="{{ url_for('.static', filename='order.css') }}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    </head>
+    <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('index') }}"><img style="height: 25px; width: 25px; color: #FFFFFF" src="static/images/LOGOWHITE.png"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ url_for('index') }}">DEPARTMENTS</a></li>
+                <li><a href="{{ url_for('index') }}">PRODUCTS</a></li>
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('account') }}">ACCOUNT</a></li>
+                <li><a href="{{ url_for('logout') }}">LOG OUT</a></li>
+                <li><a href="{{ url_for('cart') }}"><i style="color: #fff;" class="fa fa-shopping-cart fa-lg"></i></a></li>
+                {% else %}
+                <li><a href="{{ url_for('login') }}">SIGN IN</a></li>
+                <li><a href="{{ url_for('register') }}">REGISTER</a></li>
+                <li><a href="{{ url_for('guestcart') }}"><i style="color: #fff;" class="fa fa-shopping-cart fa-lg"></i></a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+        <div class="row">
+         <div class="col-75">
+      <div class="container">
+        <form method="POST" action="">
+
+          <div class="row">
+            <div class="col-50">
+              <h2>Billing Address</h2>
+              <!-- first name -->
+              <div class="form-group">
+              {{ form.first_name.label(class="form-control-label") }}
+              {% if form.first_name.errors %}
+                {{ form.first_name(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.first_name.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.first_name(class="form-control form-control-lg") }}
+              {% endif %}
+              </div>
+              <!-- last_name name -->
+              <div class="form-group">
+              {{ form.last_name.label(class="form-control-label") }}
+              {% if form.last_name.errors %}
+                {{ form.last_name(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.last_name.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.last_name(class="form-control form-control-lg") }}
+              {% endif %}
+              </div>
+              <!-- email -->
+              <div class="form-group">
+              {{ form.email.label(class="form-control-label") }}
+              {% if form.email.errors %}
+                {{ form.email(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.email.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.email(class="form-control form-control-lg") }}
+              {% endif %}
+              </div>
+              <!-- address -->
+              <div class="form-group">
+              {{ form.address.label(class="form-control-label") }}
+              {% if form.address.errors %}
+                {{ form.address(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.address.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.address(class="form-control form-control-lg") }}
+              {% endif %}
+              </div>
+              <!-- city -->
+              <div class="form-group">
+              {{ form.city.label(class="form-control-label") }}
+              {% if form.city.errors %}
+                {{ form.city(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.city.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.city(class="form-control form-control-lg") }}
+              {% endif %}
+              </div>
+
+              <div class="row">
+            <div class="col-50">
+              <!-- state -->
+              <div class="form-group">
+              {{ form.state.label(class="form-control-label") }}
+              {% if form.state.errors %}
+                {{ form.state(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.state.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.state(class="form-control form-control-lg") }}
+              {% endif %}
+              </div>
+                </div>
+                <div class="col-50">
+                  <!-- zip code -->
+                  <div class="form-group">
+                  {{ form.zip_code.label(class="form-control-label") }}
+                  {% if form.zip_code.errors %}
+                    {{ form.zip_code(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.zip_code.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {{ form.zip_code(class="form-control form-control-lg") }}
+                  {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-50">
+                <div class="fifty">
+              <h2>Payment</h2>
+                <h6 style="color: red">DO NOT ATTEMPT TO STORE SENSITIVE INFORMATION
+                  ON SITE. PAYMENT SECTION FOR DEMONSTRATION ONLY. PAYMENT
+                  INFORMATION DOES NOT SUBMIT ANYWHERE.
+                </h6>
+              <div class="icon-container">
+                <i class="fa fa-cc-visa"></i>
+                <i class="fa fa-cc-amex"></i>
+                <i class="fa fa-cc-mastercard"></i>
+                <i class="fa fa-cc-discover"></i>
+              </div>
+              <label for="cname">Name on Card:</label>
+              <input type="text" id="cname" name="cardname" placeholder="First Middle Last">
+              <label for="ccnum">Credit Card Number:</label>
+              <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+              <label for="expmonth">Exp. Month:</label>
+              <input type="text" id="expmonth" name="expmonth" placeholder="September">
+
+              <div class="row">
+                <div class="col-50">
+                  <label for="expyear">Exp Year</label>
+                  <input type="text" id="expyear" name="expyear" placeholder="2024">
+                </div>
+                <div class="col-50">
+                  <label for="cvv">CVV</label>
+                  <input type="text" id="cvv" name="cvv" placeholder="123">
+                </div>
+              </div>
+            </div>
+          </div>
+
+            </div>
+          <label>
+              <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+          </label>
+          <hr>
+      </div>
+    </div>
+         <div class="col-25">
+      <div class="container">
+        <h4><b>Cart</b>
+            <span class="price" style="color:black">
+            <i class="fa fa-shopping-cart"></i>
+            <b>4</b>
+          </span>
+        </h4>
+        <p><a href="#">Product 1</a> <span class="price">$15</span></p>
+        <p><a href="#">Product 2</a> <span class="price">$5</span></p>
+        <p><a href="#">Product 3</a> <span class="price">$8</span></p>
+        <p><a href="#">Product 4</a> <span class="price">$2</span></p>
+        <hr>
+        <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
+          <div>{{ form.submit(class="btn btn-primary") }}</div>
+          </form>
+      </div>
+         </div>
+        </div>
+
+        <footer class="container-fluid text-center">
+            <a href="#myPage" title="To Top">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+            </a>
+            <br>
+            <img src="static/images/LOGO.png" style="align-content: center; height: 25px; width: 25px;">
+            <p>&#169;2022 Good Grocers All Rights Reserved</p>
+        </footer>
+
+
+<script>
+$(document).ready(function(){
+  $("a").on('click', function(event) {
+    if (this.hash !== "") {
+      event.preventDefault();
+
+      var hash = this.hash;
+
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 900, function(){
+
+        window.location.hash = hash;
+      });
+    }
+  });
+
+  $(window).scroll(function() {
+    $(".slideanim").each(function(){
+      var pos = $(this).offset().top;
+
+      var winTop = $(window).scrollTop();
+        if (pos < winTop + 600) {
+          $(this).addClass("slide");
+        }
+    });
+  });
+})
+</script>
+
+</body>
+</html>

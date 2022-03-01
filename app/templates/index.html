@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Good Grocers</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"  type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='master.css') }}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+</head>
+    <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<!-- navigation bar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand"><img style="height: 30px; width: 30px; color: #FFFFFF" src="static/images/LOGOWHITE.png"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#departments">DEPARTMENTS</a></li>
+                <li><a href="#products">PRODUCTS</a></li>
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('account') }}">ACCOUNT</a></li>
+                    <li><a href="{{ url_for('logout') }}">LOG OUT</a></li>
+                    <li><a href="{{ url_for('cart') }}"><i style="color: #fff;" class="fa fa-shopping-cart fa-lg"></i></a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">SIGN IN</a></li>
+                    <li><a href="{{ url_for('register') }}">REGISTER</a></li>
+                    <li><a href="{{ url_for('guestcart') }}"><i style="color: #fff;" class="fa fa-shopping-cart fa-lg"></i></a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- grocery image-->
+<div class="jumbotron text-center">
+    <br>
+    <h1>Good Grocers</h1>
+    <p>The greater grocer.</p>
+</div>
+
+<!-- Alerts Flash -->
+<div class="alertscenter">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+</div>
+
+<!-- department navigation -->
+<div class="center">
+<div id="departments" class="container-fluid-first text-center">
+    <h2>DEPARTMENTS</h2>
+    <br>
+    <div class="row slideanim">
+        <div class="col-sm-4">
+        <a href="#produce"><img src="static/images/PRODUCEICON.png" style="height: 100px; width: 100px"><h4>PRODUCE</h4></a>
+        </div>
+        <div class="col-sm-4">
+            <a href="#grocery"><img src="static/images/GROCERYICON.png" style="height: 100px; width: 100px"><h4>GROCERY</h4></a>
+        </div>
+        <div class="col-sm-4">
+            <a href="#deli"><img src="static/images/DELIICON.png" style="height: 100px; width: 100px"><h4>DELI</h4></a>
+        </div>
+    </div>
+    <br><br>
+    <div class="row slideanim">
+        <div class="col-sm-4">
+            <a href="#meat"><img src="static/images/MEATICON.png" style="height: 100px; width: 100px"><h4>MEAT</h4></a>
+        </div>
+        <div class="col-sm-4">
+            <a href="#dairy"><img src="static/images/DAIRYICON.png" style="height: 100px; width: 100px"><h4>DAIRY</h4></a>
+        </div>
+        <div class="col-sm-4">
+            <a href="#bakery"><img src="static/images/BAKERYICON.png" style="height: 100px; width: 100px"><h4>BAKERY</h4></a>
+        </div>
+    </div>
+</div>
+
+<!-- Food section -->
+{% block content %}
+<div id="products" class="container-fluid text-center bg-grey">
+    <h2>PRODUCTS</h2>
+
+    <!-- PRODUCE SECTION -->
+    <hr id="produce">
+    <div class="row text-center slideanim">
+        <h4>Produce</h4>
+        {% for food in food %}
+          {% if food.department == 'Produce' and food.quantity > 0 %}
+          <div class="col-sm-3">
+          <div class="thumbnail">
+            <a href="{{ url_for('product') }}">
+              <img src="{{ url_for('static', filename='newimages/' + food.image_file) }}" width="400" height="300">
+            </a>
+              <p><strong>{{ food.name }}</strong></p>
+              <p>${{ food.cost }}</p>
+              <a class="btn btn-primary" href="#" role="button">Add to Cart</a>
+              </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </hr>
+    </div><br>
+
+    <!-- GROCERY SECTION -->
+    <hr id="grocery">
+    <div class="row text-center slideanim">
+        <h4>Grocery</h4>
+        {% for food in food %}
+          {% if food.department == 'Grocery' and food.quantity > 0 %}
+          <div class="col-sm-3">
+          <div class="thumbnail">
+            <a href="{{ url_for('product') }}">
+              <img src="{{ url_for('static', filename='newimages/' + food.image_file) }}" width="400" height="300">
+            </a>
+              <p><strong>{{ food.name }}</strong></p>
+              <p>${{ food.cost }}</p>
+              <a class="btn btn-primary" href="#" role="button">Add to Cart</a>
+              </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </hr>
+    </div><br>
+
+    <!-- DELI SECTION -->
+    <hr id="deli">
+    <div class="row text-center slideanim">
+        <h4>Deli</h4>
+        {% for food in food %}
+          {% if food.department == 'Deli' and food.quantity > 0 %}
+          <div class="col-sm-3">
+          <div class="thumbnail">
+            <a href="{{ url_for('product') }}">
+              <img src="{{ url_for('static', filename='newimages/' + food.image_file) }}" width="400" height="300">
+            </a>
+              <p><strong>{{ food.name }}</strong></p>
+              <p>${{ food.cost }}</p>
+              <a class="btn btn-primary" href="#" role="button">Add to Cart</a>
+              </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </hr>
+    </div><br>
+
+    <!-- MEAT SECTION -->
+    <hr id="meat">
+    <div class="row text-center slideanim">
+        <h4>Meat</h4>
+        {% for food in food %}
+          {% if food.department == 'Meat' and food.quantity > 0 %}
+          <div class="col-sm-3">
+          <div class="thumbnail">
+            <a href="{{ url_for('product') }}">
+              <img src="{{ url_for('static', filename='newimages/' + food.image_file) }}" width="400" height="300">
+            </a>
+              <p><strong>{{ food.name }}</strong></p>
+              <p>${{ food.cost }}</p>
+              <a class="btn btn-primary" href="#" role="button">Add to Cart</a>
+              </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </hr>
+    </div><br>
+
+    <!-- DAIRY SECTION -->
+    <hr id="dairy">
+    <div class="row text-center slideanim">
+        <h4>Dairy</h4>
+        {% for food in food %}
+          {% if food.department == 'Dairy' and food.quantity > 0 %}
+          <div class="col-sm-3">
+          <div class="thumbnail">
+            <a href="{{ url_for('product') }}">
+              <img src="{{ url_for('static', filename='newimages/' + food.image_file) }}" width="400" height="300">
+            </a>
+              <p><strong>{{ food.name }}</strong></p>
+              <p>${{ food.cost }}</p>
+              <a class="btn btn-primary" href="#" role="button">Add to Cart</a>
+              </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </hr>
+    </div><br>
+
+    <!-- BAKERY SECTION -->
+    <hr id="bakery">
+    <div class="row text-center slideanim">
+        <h4>Bakery</h4>
+        {% for food in food %}
+          {% if food.department == 'Bakery' and food.quantity > 0 %}
+          <div class="col-sm-3">
+          <div class="thumbnail">
+            <a href="{{ url_for('product') }}">
+              <img src="{{ url_for('static', filename='newimages/' + food.image_file) }}" width="400" height="300">
+            </a>
+              <p><strong>{{ food.name }}</strong></p>
+              <p>${{ food.cost }}</p>
+              <a class="btn btn-primary" href="#" role="button">Add to Cart</a>
+              </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </hr>
+    </div><br>
+  </div>
+{% endblock %}
+
+  <!-- footer; takes to top of page -->
+        <footer class="container-fluid text-center">
+            <a href="#myPage" title="To Top">
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            </a>
+            <br>
+            <img src="static/images/LOGO.png" style="align-content: center; height: 25px; width: 25px;">
+            <p>&#169;2022 Good Grocers All Rights Reserved</p>
+        </footer>
+
+<!-- footer; top of page script -->
+<script>
+$(document).ready(function(){
+  $("a").on('click', function(event) {
+    if (this.hash !== "") {
+      event.preventDefault();
+
+      var hash = this.hash;
+
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 900, function(){
+
+        window.location.hash = hash;
+      });
+    }
+  });
+
+  $(window).scroll(function() {
+    $(".slideanim").each(function(){
+      var pos = $(this).offset().top;
+
+      var winTop = $(window).scrollTop();
+        if (pos < winTop + 600) {
+          $(this).addClass("slide");
+        }
+    });
+  });
+})
+</script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div id="row" class="row">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="column left">
+               <h3 style="color: #729E04;">Product</h3>
+                <i><p>Description</p></i>
+                <p>Department</p>
+                <small><p>Quantity: 10</p></small>
+                <b><p>$3.99</p></b>
+                <a style="margin-bottom: 25px;" class="btn btn-primary" href="#" role="button">Add to Cart</a>
+             </div>
+            <div class="column right">
+                <img class="products" src="static/images/apple.jpeg" alt="apple">
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="column left">
+               <h3 style="color: #729E04;">Product</h3>
+                <i><p>Description</p></i>
+                <p>Department</p>
+                <small><p>Quantity: 10</p></small>
+                <b><p>$7.99</p></b>
+                <a style="margin-bottom: 25px;" class="btn btn-primary" href="#" role="button">Add to Cart</a>
+             </div>
+            <div class="column right">
+                <img class="products" src="static/images/bananas.jpg" alt="bananas">
+            </div>
+        </div>
+    </div>
+</div>
+
+<row>
+  <p><strong>{{ food.name }}</strong></p>
+  <p><strong>Price:</strong> ${{ food.cost }}</p>
+  <p><strong>Description:</strong> {{ food.description }}</p>
+  <p><strong>Stock:</strong> {{ food.quantity }}</p>
+  <p><strong>Department:</strong> {{ food.department }}</p>
+</row>
+
+
+<!-- footer -->
+<footer class="container-fluid-layout text-center">
+    <img src="static/images/LOGO.png" style="align-content: center; height: 25px; width: 25px;">
+    <p style="font-size: 12px;">&#169;2022 Good Grocers No Rights Reserved</p>
+</footer>
+
+{% endblock content %}

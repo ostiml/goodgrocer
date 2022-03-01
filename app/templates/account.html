@@ -1,0 +1,135 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class="formscenter">
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group">
+      <legend>Account Information</legend>
+      <div class="form-group">
+        {{ form.username.label(class="form-control-label") }}
+        {% if form.username.errors %}
+          {{ form.username(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+            {% for error in form.username.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          {{ form.username(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.email.label(class="form-control-label") }}
+        {% if form.email.errors %}
+          {{ form.email(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+            {% for error in form.email.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          {{ form.email(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.first_name.label(class="form-control-label") }}
+        {% if form.first_name.errors %}
+          {{ form.first_name(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+            {% for error in form.first_name.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          {{ form.first_name(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.last_name.label(class="form-control-label") }}
+        {% if form.last_name.errors %}
+          {{ form.last_name(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+            {% for error in form.last_name.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          {{ form.last_name(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.state.label(class="form-control-label") }}
+        {% if form.state.errors %}
+          {{ form.state(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+            {% for error in form.state.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          {{ form.state(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.city.label(class="form-control-label") }}
+        {% if form.city.errors %}
+          {{ form.city(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+            {% for error in form.city.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          {{ form.city(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.address.label(class="form-control-label") }}
+        {% if form.address.errors %}
+          {{ form.address(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+            {% for error in form.address.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          {{ form.address(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.zip_code.label(class="form-control-label") }}
+        {% if form.zip_code.errors %}
+          {{ form.zip_code(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+            {% for error in form.zip_code.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          {{ form.zip_code(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
+    </fieldset>
+
+  <!-- submit button -->
+  <div class="button2">
+    {{ form.submit(class="btn btn-outline-info") }}
+  </div>
+
+  <!-- Reset Password Button -->
+  <small>
+      <div class="button2">
+          <a href="{{ url_for('reset_request') }}">Need to change your Password?</a>
+      </div>
+  </small>
+  </form>
+</div>
+
+<!-- footer -->
+<footer class="container-fluid text-center">
+    <img src="static/images/LOGO.png" style="align-content: center; height: 25px; width: 25px;">
+    <p style="font-size: 12px;">&#169;2022 Good Grocers No Rights Reserved</p>
+</footer>
+
+{% endblock content %}

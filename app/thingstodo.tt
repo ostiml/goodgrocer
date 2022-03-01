@@ -1,0 +1,11 @@
+fix remove and modify buttons in inventory page
+fix product page
+set up Cart
+fix add to cart button in index and in product page
+host the site
+create script to import lots of products into database
+fix account page into 3 columns, add order history to right column
+
+
+? create credit cart model
+? fix credit cart form in cart page

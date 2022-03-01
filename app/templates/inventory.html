@@ -1,0 +1,204 @@
+<style>
+section {
+  float: left;
+  width: 69.5%;
+  padding: 1%;
+  margin-left: .5%;
+  background-color: #f1f1f1;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+}
+.entry {
+  left: 5%;
+  width: 100%;
+  background-color: green;
+  border: 2px solid red;
+  border-radius: 3px;
+}
+aside {
+  position: fixed;
+  right: .5%;
+  padding: 1%;
+  width: 29%;
+  background-color: #f1f1f1;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+}
+table, td {
+  border:1px solid black;
+}
+td {
+  height: 26px;
+  word-break: break-all;
+}
+th {
+  height: 32px;
+  color: black;
+  font-size: 16px;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.button {
+  border-radius: 6px;
+  color: white;
+  padding: 2px 4px;
+  text-align: center;
+  display: inline-block;
+  font-size: 12px;
+  margin: 1px 6px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.buttonmodify {
+  background-color: #b3e6ff;
+  color: black;
+}
+
+.buttonmodify:hover {
+  background-color: #e6f7ff;
+  color: black;
+}
+.buttonremove {
+  background-color: #ff8080;
+  color: black;
+}
+
+.buttonremove:hover {
+  background-color: #ffb3b3;
+  color: black;
+}
+</style>
+
+{% extends 'layout.html' %}
+{% block content %}
+<div style="margin-top: .5%"">
+  <section>
+    <table style="width:100%">
+      <tr>
+        <th style="width:10%">Name</th>
+        <th style="width:3%">Cost</th>
+        <th style="width:3%">Quantity</th>
+        <th style="width:5%">Department</th>
+        <th style="width:30%">Description</th>
+        <th style="width:8%"></th>
+      </tr>
+      {% for food in food %}
+        <tr>
+          <td>{{food.name}}</td>
+          <td>${{food.cost}}</td>
+          <td>{{food.quantity}}</td>
+          <td>{{food.department}}</td>
+          <td>{{food.description}}</td>
+          <td><button class="button buttonremove">Remove</button><button class="button buttonmodify">Modify</button></td>
+        </tr>
+      {% endfor %}
+    </table>
+
+  </section>
+
+  <aside>
+    <!-- BEGIN PRODUCT FORM -->
+    <form method="POST" action="" enctype="multipart/form-data">
+      {{ addform.hidden_tag() }}
+      <fieldset class="form-group">
+        <legend>Add Product</legend>
+        <div class="form-group">
+          {{ addform.name.label(class="form-control-label") }}
+          {% if addform.name.errors %}
+            {{ addform.name(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in addform.name.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ addform.name(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ addform.description.label(class="form-control-label") }}
+          {% if addform.description.errors %}
+            {{ addform.description(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in addform.description.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ addform.description(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ addform.quantity.label(class="form-control-label") }}
+          {% if addform.quantity.errors %}
+            {{ addform.quantity(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in addform.quantity.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ addform.quantity(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ addform.cost.label(class="form-control-label") }}
+          {% if addform.cost.errors %}
+            {{ addform.cost(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in addform.cost.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ addform.cost(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ addform.department.label(class="form-control-label") }}
+          {% if addform.department.errors %}
+            {{ addform.department(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in addform.department.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ addform.department(class="form-control form-control-lg") }}
+          {% endif %}
+          <p style="text-align: center">Bakery | Dairy | Deli | Grocery | Meat | Produce</p>
+        </div>
+        <div class="form-group">
+          {{ addform.image_file.label() }}
+          {{ addform.image_file(class="form-control-label") }}
+          {% if addform.image_file.errors %}
+            {% for error in addform.image_file.errors %}
+              <span class="text-danger">{{ error }}</span><br>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </fieldset>
+
+    <!-- submit button -->
+    <div class="button2">
+      {{ addform.submit(class="btn btn-outline-info") }}
+    </div>
+    </form>
+  <!-- END ADD PRODUCT FORM -->
+  </aside>
+</div>
+<div>
+  <!-- *DECOY* DO NOT REMOVE, NOT SURE WHY BUT ACTUAL FOOTER GETS MOVED IF THIS IS REMOVED -->
+  <footer class="container-fluid text-center">
+      <img src="static/images/LOGOWHITE.png" style="align-content: center; height: 25px; width: 25px;">
+      <p style="color: white; font-size: 12px;">&#169;2022 Good Grocers No Rights Reserved</p>
+  </footer>
+  <!-- ACTUAL footer -->
+  <footer class="container-fluid text-center">
+      <img src="static/images/LOGO.png" style="align-content: center; height: 25px; width: 25px;">
+      <p style="font-size: 12px;">&#169;2022 Good Grocers No Rights Reserved</p>
+  </footer>
+</div>
+{% endblock content %}
